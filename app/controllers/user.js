@@ -4,22 +4,18 @@ const {
 } = require("../models");
 
 exports.signup = async (req, res) => {
-    const {
-        firstname,
-        lastname,
-        email,
-        password
-    } = req.body
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({
-            firstName: firstname,
-            lastName: lastname,
-            email: email,
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        newUser = {
+            ...req.body,
             password: hashedPassword
+        }
+        console.log(newUser)
+        const user = await User.create(newUser);
+        res.status(201).json({
+            message: 'Sign up successfully'
         });
-        res.status(201).json(user);
     } catch (error) {
         res.status(400).json({
             error: error.message
