@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const {
     User
 } = require("../models");
+const jwt = require('jsonwebtoken');
 
 exports.signup = async (req, res) => {
 
@@ -12,7 +13,7 @@ exports.signup = async (req, res) => {
             password: hashedPassword
         });
         res.status(201).json({
-            message: 'Inscription réussi'
+            message: `Inscription réussi ${user.firstName} ${user.lastName}`
         });
     } catch (error) {
         res.status(400).json({
@@ -50,9 +51,19 @@ exports.login = async (req, res) => {
             });
         }
 
-        res.status(200).json({
-            error: 'Connexion réussi'
+        // Generate JWT token
+        const token = jwt.sign({
+            userId: user.id
+        }, 'rmaplayers', {
+            expiresIn: '24h'
         });
+
+
+        res.status(200).json({
+            message: `Connexion réussi ${user.firstName} ${user.lastName}`,
+            token: token
+        });
+
     } catch (error) {
         res.status(400).json({
             error: error.message,
