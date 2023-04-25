@@ -9,6 +9,9 @@ db.sequelize
     .catch((err) => console.log(err));
 
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
 
 //Ajout des routes
 app.use("/api", router);
