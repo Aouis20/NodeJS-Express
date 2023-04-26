@@ -1,30 +1,19 @@
 const jwt = require('jsonwebtoken');
 
-const verifyToken = (req, res, next) => {
-    // Récupérer le token depuis le header Authorization
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({
-            message: 'Token manquant'
-        });
-    }
-
+module.exports = (req, res, next) => {
     try {
-        // Vérifier la signature du token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        // Stocker les informations du token dans l'objet req.user
-        req.user = decoded;
-
-        // Passer au middleware suivant
+        const token = req.headers.authorization.split(' ')[1];
+        //decoded the token
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+        const userId = decodedToken.id;
+        //save userId in req.auth var
+        req.auth = {
+            userId
+        };
         next();
-    } catch (error) {
-        res.status(403).json({
-            message: 'Token invalide'
+    } catch (err) {
+        res.status(401).json({
+            error: 'Unauthorized request!'
         });
     }
 };
-
-module.exports = verifyToken;
