@@ -7,5 +7,6 @@ const woodsCtrl = require("../controllers/woods.js");
 
 router.get('/', auth, woodsCtrl.readAll);
 router.get('/:hardness', auth, woodsCtrl.findByHardness);
+router.post('/create', auth, woodsCtrl.create)
 
 module.exports = router;

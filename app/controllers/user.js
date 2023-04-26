@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
         // Generate JWT token
         const token = jwt.sign({
             userId: user.id
-        }, 'rmaplayers', {
+        }, process.env.TOKEN_SECRET, {
             expiresIn: '24h'
         });
 

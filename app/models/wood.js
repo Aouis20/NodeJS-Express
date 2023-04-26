@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Le champ hardness doit être soit tender, medium-hard ou hard.'
         }
       }
-    }
+    },
+    image: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Wood',

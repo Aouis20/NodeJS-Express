@@ -27,3 +27,18 @@ exports.findByHardness = async (req, res) => {
         });
     }
 }
+
+exports.create = async (req, res) => {
+    try {
+        const newWood = await Wood.create({
+            ...req.body
+        })
+        res.status(201).json({
+            message: `Création réussi : ${newWood.name}`
+        });
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+    }
+}
