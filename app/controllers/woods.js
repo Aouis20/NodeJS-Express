@@ -50,6 +50,8 @@ exports.readOne = async (req, res) => {
 }
 
 exports.update = async (req, res) => {
+    const pathname = req.file ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}` : null;
+
     try {
         const wood = await Wood.findOne({
             where: {
@@ -57,10 +59,25 @@ exports.update = async (req, res) => {
             },
         })
 
+        if (!wood) {
+            return res.status(404).json({
+                message: "Wood not found"
+            });
+        }
+
+        if (pathname) {
+            const imageName = path.basename(wood.image);
+            const imagePath = path.join(__dirname, "..", "..", "uploads", imageName);
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath);
+            }
+        }
+
         wood.update({
             ...JSON.parse(req.body.datas),
             image: pathname,
         })
+
 
         await wood.save()
 
