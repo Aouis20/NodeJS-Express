@@ -10,6 +10,9 @@ const multer = require('../middleware/multer.js')
 // En ajoutant auth aux routes, on les protègent => Il faut être connecté pour y accéder
 
 router.get('/', auth, woodsCtrl.readAll);
+router.get('/:id', auth, woodsCtrl.readOne);
+router.patch('/:id', auth, multer, woodsCtrl.update);
+router.delete('/:id', auth, woodsCtrl.delete);
 router.get('/:hardness', auth, woodsCtrl.findByHardness);
 router.post("/", auth, multer, woodsCtrl.create);
 
