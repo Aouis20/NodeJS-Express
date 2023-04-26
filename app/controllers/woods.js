@@ -29,12 +29,16 @@ exports.findByHardness = async (req, res) => {
 }
 
 exports.create = async (req, res) => {
+    const pathname = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+
     try {
         const newWood = await Wood.create({
-            ...req.body
+            ...JSON.parse(req.body.datas), //Transforme les données en format utilisable
+            image: pathname,
         })
         res.status(201).json({
-            message: `Création réussi : ${newWood.name}`
+            message: `Création réussi : ${newWood.name}`,
+            datas: newWood
         });
     } catch (error) {
         res.status(400).json({

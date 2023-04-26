@@ -61,6 +61,8 @@ module.exports = {
       }
     });
   },
+
+  // Dans le down toujours mettre l'inverse de up()
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
   }

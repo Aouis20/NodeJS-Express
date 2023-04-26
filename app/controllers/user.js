@@ -58,9 +58,9 @@ exports.login = async (req, res) => {
             expiresIn: '24h'
         });
 
-
         res.status(200).json({
-            message: `Connexion réussi ${user.firstName} ${user.lastName}`,
+            message: `Connexion réussi ${user.firstName}`,
+            datas: user,
             token: token
         });
 
