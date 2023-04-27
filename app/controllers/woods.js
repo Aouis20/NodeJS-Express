@@ -114,7 +114,7 @@ exports.delete = async (req, res) => {
 
         await wood.destroy();
 
-        res.status(201).json({
+        res.status(204).json({
             message: "Wood deleted successfully",
         });
     } catch (error) {

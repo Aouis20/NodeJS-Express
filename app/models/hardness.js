@@ -2,10 +2,14 @@
 const {
   Model
 } = require('sequelize');
+
+
 module.exports = (sequelize, DataTypes) => {
   class Hardness extends Model {
     static associate(models) {
-      // define association here
+      Hardness.hasMany(models.Wood, {
+        foreignKey: 'hardness'
+      });
     }
   }
   Hardness.init({

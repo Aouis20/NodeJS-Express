@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Wood.belongsTo(models.Type, {
-        foreignKey: 'typeId'
+        foreignKey: 'type'
+      });
+      Wood.belongsTo(models.Hardness, {
+        foreignKey: 'hardness'
       });
     }
   }

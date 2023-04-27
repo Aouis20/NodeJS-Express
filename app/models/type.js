@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Type.hasMany(models.Wood, {
-        foreignKey: 'typeId'
+        foreignKey: 'type'
       });
     }
   }
