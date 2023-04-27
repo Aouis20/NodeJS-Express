@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isIn: {
           args: [
-            ['softwood', 'exotic wood', 'noble wood']
+            ['softwood', 'exotic wood', 'noble and hardwoods']
           ],
           msg: 'Le champ type doit être soit softwood, exotic wood ou noble and hardwoods.'
         }

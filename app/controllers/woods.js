@@ -65,7 +65,7 @@ exports.update = async (req, res) => {
             });
         }
 
-        if (pathname) {
+        if (pathname && wood.image) {
             const imageName = path.basename(wood.image);
             const imagePath = path.join(__dirname, "..", "..", "uploads", imageName);
             if (fs.existsSync(imagePath)) {
@@ -74,10 +74,9 @@ exports.update = async (req, res) => {
         }
 
         wood.update({
-            ...JSON.parse(req.body.datas),
+            ...(req.body.datas ? JSON.parse(req.body.datas) : {}),
             image: pathname,
         })
-
 
         await wood.save()
 
