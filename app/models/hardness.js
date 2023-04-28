@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   class Hardness extends Model {
     static associate(models) {
       Hardness.hasMany(models.Wood, {
-        foreignKey: 'hardness'
+        foreignKey: 'hardnessId'
       });
     }
   }

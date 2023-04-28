@@ -44,37 +44,37 @@ module.exports = {
     await queryInterface.bulkInsert('Woods', [{
         name: "Épicéa",
         typeId: softwood.id,
-        hardnessId: tender.id,
+        hardness: tender.id,
       },
       {
         name: "Pin",
         typeId: softwood.id,
-        hardnessId: mediumHard.id,
+        hardness: mediumHard.id,
       },
       {
         name: "Padouk",
         typeId: exoticWood.id,
-        hardnessId: hard.id,
+        hardness: hard.id,
       },
       {
         name: "Érable",
         typeId: nobleAndHardwoods.id,
-        hardnessId: mediumHard.id,
+        hardness: mediumHard.id,
       },
       {
         name: "Hêtre",
         typeId: nobleAndHardwoods.id,
-        hardnessId: mediumHard.id,
+        hardness: mediumHard.id,
       },
       {
         name: "Itauba",
         typeId: exoticWood.id,
-        hardnessId: hard.id,
+        hardness: hard.id,
       },
       {
         name: "Douglas",
         typeId: softwood.id,
-        hardnessId: tender.id,
+        hardness: tender.id,
       }
     ], {});
   },

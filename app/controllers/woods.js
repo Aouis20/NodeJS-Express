@@ -1,12 +1,32 @@
 const {
-    Wood
+    Wood,
+    Type,
+    Hardness
 } = require("../models");
 const path = require('path')
 const fs = require('fs');
+const hardness = require("../models/hardness");
 
 exports.readAll = async (req, res) => {
     try {
-        const woods = await Wood.findAll()
+        const woods = await Wood.findAll({
+            include: [{
+                    model: Type,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                },
+                {
+                    model: Hardness,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                }
+            ],
+            attributes: {
+                exclude: ["typeId", "hardnessId"]
+            }
+        })
         res.status(201).json(woods);
     } catch (error) {
         res.status(400).json({
@@ -40,6 +60,23 @@ exports.readOne = async (req, res) => {
             where: {
                 id: req.params.id,
             },
+            include: [{
+                    model: Type,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                },
+                {
+                    model: Hardness,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                }
+            ],
+            attributes: {
+                exclude: ["typeId", "hardnessId"]
+            }
+
         });
         res.status(201).json(wood);
     } catch (error) {
