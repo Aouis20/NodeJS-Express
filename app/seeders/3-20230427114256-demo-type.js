@@ -5,11 +5,17 @@ module.exports = {
   async up(queryInterface, Sequelize) {
 
     await queryInterface.bulkInsert('Types', [{
-      name: 'softwood'
+      name: 'softwood',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }, {
-      name: 'exotic wood'
+      name: 'exotic wood',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }, {
-      name: 'noble and hardwoods'
+      name: 'noble and hardwoods',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 

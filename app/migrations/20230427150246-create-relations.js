@@ -7,12 +7,7 @@ module.exports = {
 
     await queryInterface.addColumn("Woods", "typeId", {
       type: Sequelize.INTEGER,
-      allowNUll: false,
-    })
-
-    await queryInterface.addColumn("Woods", "hardnessId", {
-      type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: true,
     })
 
     await queryInterface.addConstraint("Woods", {
@@ -20,9 +15,28 @@ module.exports = {
       type: "foreign key",
       name: "fk_wood_type",
       references: {
-
+        table: "Types",
+        field: "id"
       }
     })
+    await queryInterface.removeColumn("Woods", "type");
+
+    await queryInterface.addColumn("Woods", "hardnessId", {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    })
+
+    await queryInterface.addConstraint("Woods", {
+      fields: ["hardnessId"],
+      type: "foreign key",
+      name: "fk_wood_hardness",
+      references: {
+        table: "Hardnesses",
+        field: "id"
+      }
+    })
+
+    await queryInterface.removeColumn("Woods", "hardness");
 
   },
 
@@ -32,15 +46,13 @@ module.exports = {
       type: Sequelize.ENUM,
       values: ["softwood", "exotic wood", "noble and hardwoods"],
     });
+    await queryInterface.removeConstraint("Woods", "fk_wood_type");
+    await queryInterface.removeColumn("Woods", "typeId");
 
     await queryInterface.addColumn("Woods", "hardness", {
       type: Sequelize.ENUM,
       values: ["tender", "medium-hard", "hard"],
     });
-
-    await queryInterface.removeConstraint("Woods", "fk_wood_type");
-    await queryInterface.removeColumn("Woods", "typeId");
-    
     await queryInterface.removeConstraint("Woods", "fk_wood_hardness");
     await queryInterface.removeColumn("Woods", "hardnessId");
   }
